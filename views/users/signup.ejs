@@ -1,0 +1,125 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7 col-sm-10">
+
+            <!-- Signup Card -->
+            <div class="card shadow-lg border-0 rounded-4">
+
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Heading -->
+                    <div class="text-center mb-4">
+                        <h1 class="fw-bold text-success">
+                            Join StayNest 🌍
+                        </h1>
+
+                        <p class="text-muted mb-0">
+                            Create your account and start exploring
+                        </p>
+                    </div>
+
+                    <!-- Signup Form -->
+                    <form action="/signup" method="POST"
+                          class="needs-validation"
+                          novalidate>
+
+                        <!-- Username -->
+                        <div class="form-floating mb-3">
+                            <input
+                                name="username"
+                                id="username"
+                                type="text"
+                                class="form-control"
+                                placeholder="Username"
+                                required
+                            >
+
+                            <label for="username">
+                                Username
+                            </label>
+
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+
+                            <div class="invalid-feedback">
+                                Please enter a username.
+                            </div>
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="form-floating mb-3">
+                            <input
+                                name="email"
+                                id="email"
+                                type="email"
+                                class="form-control"
+                                placeholder="name@example.com"
+                                required
+                            >
+
+                            <label for="email">
+                                Email address
+                            </label>
+
+                            <div class="invalid-feedback">
+                                Please enter a valid email.
+                            </div>
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="form-floating mb-4">
+                            <input
+                                name="password"
+                                id="password"
+                                type="password"
+                                class="form-control"
+                                placeholder="Password"
+                                minlength="6"
+                                required
+                            >
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <div class="invalid-feedback">
+                                Password must be at least 6 characters.
+                            </div>
+                        </div>
+
+
+                        <!-- Signup Button -->
+                        <div class="d-grid">
+                            <button
+                                type="submit"
+                                class="btn btn-success btn-lg rounded-3"
+                            >
+                                Sign Up
+                            </button>
+                        </div>
+
+                    </form>
+
+
+                    <!-- Login Link -->
+                    <div class="text-center mt-4">
+                        <p class="text-muted mb-0">
+                            Already have an account?
+                            <a href="/login"
+                               class="text-success fw-semibold text-decoration-none">
+                                Login
+                            </a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

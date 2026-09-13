@@ -1,0 +1,350 @@
+<% layout("/layouts/boilerplate") %>
+
+
+<style>
+    .create-listing-page {
+        min-height: 100vh;
+        padding: 40px 0 70px;
+        background: linear-gradient(135deg, #f8f9fa, #eef1f5);
+    }
+
+    .listing-card {
+        max-width: 850px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid #eee;
+    }
+
+    .page-header {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .page-header .icon {
+        width: 65px;
+        height: 65px;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 18px;
+        background: #111;
+        color: white;
+        font-size: 28px;
+    }
+
+    .page-header h2 {
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .page-header p {
+        color: #777;
+        margin: 0;
+    }
+
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+        border-color: #111;
+        box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+    }
+
+    textarea.form-control {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+    .input-group-text {
+        border-radius: 12px 0 0 12px;
+        background: #f8f8f8;
+        border-color: #ddd;
+    }
+
+    .input-group .form-control {
+        border-radius: 0 12px 12px 0;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        margin: 30px 0 18px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .image-tip {
+        font-size: 13px;
+        color: #888;
+        margin-top: 7px;
+    }
+
+    .add-btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 13px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 15px;
+        transition: all 0.2s ease;
+    }
+
+    .add-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 768px) {
+        .create-listing-page {
+            padding: 20px 10px 50px;
+        }
+
+        .listing-card {
+            padding: 25px 20px;
+            border-radius: 18px;
+        }
+    }
+</style>
+
+
+<div class="create-listing-page">
+
+    <div class="container">
+
+        <div class="listing-card">
+
+            <!-- Header -->
+            <div class="page-header">
+
+                <div class="icon">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+
+                <h2>Create a New Listing</h2>
+
+                <p>Share your beautiful place with travelers around the world.</p>
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="/listings"
+                novalidate
+                class="needs-validation"
+                enctype="multipart/form-data"
+            >
+
+                <!-- BASIC INFORMATION -->
+                <div class="section-title">
+                    <i class="fa-solid fa-circle-info me-2"></i>
+                    Basic Information
+                </div>
+
+
+                <!-- Title -->
+                <div class="mb-4">
+
+                    <label for="title" class="form-label">
+                        Listing Title
+                    </label>
+
+                    <input
+                        id="title"
+                        name="listing[title]"
+                        placeholder="e.g. Cozy Beach House"
+                        type="text"
+                        class="form-control"
+                        required
+                    >
+
+                    <div class="valid-feedback">
+                        Title looks good!
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter a listing title.
+                    </div>
+
+                </div>
+
+
+                <!-- Description -->
+                <div class="mb-4">
+
+                    <label for="description" class="form-label">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="listing[description]"
+                        placeholder="Tell guests what makes your place special..."
+                        class="form-control"
+                        required
+                    ></textarea>
+
+                    <div class="invalid-feedback">
+                        Please enter a short description.
+                    </div>
+
+                </div>
+
+
+                <!-- IMAGE -->
+                 <div class="mb-4">
+                <label for="image" class="form-label">
+                     Upload Image 
+                    </label>
+                     <input
+                        id="image"
+                        name="listing[image]"
+                        type="file"
+                        class="form-control"
+                        required
+                    >
+
+                    <div class="image-tip">
+                        <i class="fa-solid fa-link me-1"></i>
+                        Add a direct image URL of your property.
+                    </div>
+
+                </div>
+
+
+                <!-- PRICE + COUNTRY -->
+                <div class="section-title">
+                    <i class="fa-solid fa-location-dot me-2"></i>
+                    Location & Pricing
+                </div>
+
+
+                <div class="row">
+
+                    <!-- Price -->
+                    <div class="mb-4 col-md-5">
+
+                        <label for="price" class="form-label">
+                            Price per night
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                ₹
+                            </span>
+
+                            <input
+                                id="price"
+                                name="listing[price]"
+                                placeholder="1200"
+                                type="number"
+                                min="1"
+                                class="form-control"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="invalid-feedback">
+                            Please enter a valid price.
+                        </div>
+
+                    </div>
+
+
+                    <!-- Country -->
+                    <div class="mb-4 col-md-7">
+
+                        <label for="country" class="form-label">
+                            Country
+                        </label>
+
+                        <input
+                            id="country"
+                            name="listing[country]"
+                            placeholder="India"
+                            type="text"
+                            class="form-control"
+                            required
+                        >
+
+                        <div class="invalid-feedback">
+                            Please enter a valid country.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOCATION -->
+                <div class="mb-4">
+
+                    <label for="location" class="form-label">
+                        Location
+                    </label>
+
+                    <input
+                        id="location"
+                        name="listing[location]"
+                        placeholder="Dhule, Maharashtra"
+                        type="text"
+                        class="form-control"
+                        required
+                    >
+
+                    <div class="invalid-feedback">
+                        Please enter the property location.
+                    </div>
+
+                </div>
+                
+                <div class="mb-3">
+  <label for="category" class="form-label">Category</label>
+  <select name="listing[category]" id="category" class="form-select" required>
+    <option value="">Select a category</option>
+    <option value="Rooms">🛏️ Rooms</option>
+    <option value="Homes">🏠 Homes</option>
+    <option value="Nature">🏔️ Nature</option>
+    <option value="Beach">🏖️ Beach</option>
+    <option value="City">🏙️ City</option>
+    <option value="Vacation">🌴 Vacation</option>
+    <option value="Camping">⛺ Camping</option>
+  </select>
+</div>
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn btn-dark add-btn"
+                >
+
+                    <i class="fa-solid fa-plus me-2"></i>
+                    Create Listing
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

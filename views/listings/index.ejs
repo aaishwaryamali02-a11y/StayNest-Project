@@ -1,0 +1,191 @@
+<% layout("/layouts/boilerplate") %>
+
+<!-- HERO -->
+<div class="container staynest-hero">
+  <h1>Find your perfect stay</h1>
+  <p>Discover beautiful places and make your next trip unforgettable.</p>
+</div>
+
+<!-- FILTERS -->
+<div class="container">
+  <div id="filters">
+    <div class="filter active" data-category="All">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </div>
+
+    <div class="filter" data-category="Rooms">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </div>
+
+    <div class="filter" data-category="Homes">
+      <div><i class="fa-solid fa-house"></i></div>
+      <p>Homes</p>
+    </div>
+
+    <div class="filter" data-category="Nature">
+      <div><i class="fa-solid fa-mountain-sun"></i></div>
+      <p>Nature</p>
+    </div>
+
+    <div class="filter" data-category="Beach">
+      <div><i class="fa-solid fa-water"></i></div>
+      <p>Beach</p>
+    </div>
+
+    <div class="filter" data-category="City">
+      <div><i class="fa-solid fa-city"></i></div>
+      <p>City</p>
+    </div>
+
+    <div class="filter" data-category="Vacation">
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      <p>Vacation</p>
+    </div>
+
+    <div class="filter" data-category="Camping">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </div>
+
+    <div class="tax-toggle">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexswitchCheckDefault">
+        <label class="form-check-label" for="flexswitchCheckDefault">
+          Display total after taxes
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LISTINGS -->
+<div class="container">
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 g-4">
+    <% for(let listing of allListings){ %>
+
+      <div class="col listing-item" data-category="<%= listing.category || '' %>">
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+
+          <div class="card listing-card">
+
+            <!-- IMAGE wishlist-->
+            <div class="image-wrapper">
+              <img src="<%= listing.image.url %>" alt="<%= listing.title %>" loading="lazy">
+
+              <span class="guest-badge">
+                Guest favourite
+              </span>
+
+              <button class="wishlist-btn" type="button" 
+             onclick="toggleWishlist(event,this,'<%= listing._id %>')">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </div>
+
+            <!-- CARD BODY -->
+            <div class="card-body">
+
+              <div class="listing-title">
+                <%= listing.title %>
+              </div>
+
+              <div class="listing-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <%= listing.location %>
+              </div>
+
+              <div class="listing-price">
+                <strong>
+                  ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : "N/A" %>
+                </strong>
+                / night
+                <i class="tax-info">&nbsp;&nbsp;+18% GST</i>
+              </div>
+
+            </div>
+          </div>
+
+        </a>
+      </div>
+
+    <% } %>
+  </div>
+</div>
+
+<!-- EXPLORE MORE -->
+<div class="container explore-section">
+  <button class="explore-btn">
+    Explore more stays
+    <i class="fa-solid fa-arrow-right ms-2"></i>
+  </button>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+let taxSwitch=document.getElementById("flexswitchCheckDefault");
+
+taxSwitch.addEventListener("change",()=>{
+  let taxInfo=document.querySelectorAll(".tax-info");
+
+  for(let info of taxInfo){
+    info.style.display=taxSwitch.checked?"inline":"none";
+  }
+});
+
+const filters=document.querySelectorAll(".filter");
+const listings=document.querySelectorAll(".listing-item");
+
+filters.forEach(filter=>{
+  filter.addEventListener("click",()=>{
+    filters.forEach(item=>item.classList.remove("active"));
+    filter.classList.add("active");
+
+    const selectedCategory=filter.getAttribute("data-category");
+
+    listings.forEach(listing=>{
+      const listingCategory=listing.getAttribute("data-category");
+
+      if(selectedCategory==="All"||listingCategory===selectedCategory){
+        listing.style.display="";
+      }else{
+        listing.style.display="none";
+      }
+    });
+  });
+});
+async function toggleWishlist(event,button,listingId){
+  event.preventDefault();
+  event.stopPropagation();
+
+  try{
+    const isActive=button.classList.contains("active");
+
+    const response=await fetch(`/wishlist/${listingId}`,{
+      method:isActive?"DELETE":"POST"
+    });
+
+    const data=await response.json();
+
+    if(data.success){
+      button.classList.toggle("active");
+
+      const icon=button.querySelector("i");
+
+      if(button.classList.contains("active")){
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+      }else{
+        icon.classList.remove("fa-solid");
+        icon.classList.add("fa-regular");
+      }
+    }
+  }catch(error){
+    console.log(error);
+  }
+}
+
+
+
+</script>

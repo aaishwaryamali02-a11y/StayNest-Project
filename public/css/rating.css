@@ -1,0 +1,316 @@
+/* =========================================
+   RATING STAR SYSTEM
+   ========================================= */
+
+.starability-slot {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 6px;
+
+    border: none;
+    padding: 5px 0;
+    margin: 0;
+
+    width: fit-content;
+}
+
+
+/* Hide radio buttons */
+
+.starability-slot input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+
+/* Star label */
+
+.starability-slot label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    cursor: pointer;
+
+    font-size: 0;
+
+    border-radius: 10px;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* Empty star */
+
+.starability-slot label::before {
+    content: "★";
+
+    font-size: 36px;
+
+    color: #d8d8d8;
+
+    line-height: 1;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease,
+        text-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   HOVER
+   ========================================= */
+
+.starability-slot label:hover::before {
+    color: #ffc107;
+
+    transform: scale(1.15);
+
+    text-shadow:
+        0 0 8px rgba(255, 193, 7, 0.45);
+}
+
+
+.starability-slot label:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =========================================
+   SELECTED STAR
+   ========================================= */
+
+/*
+   IMPORTANT:
+   We use the radio + label relationship
+   according to your HTML order.
+*/
+
+
+.starability-slot input:checked + label::before {
+    color: #ffc107;
+
+    transform: scale(1.15);
+
+    text-shadow:
+        0 2px 8px rgba(255, 193, 7, 0.45);
+}
+
+
+/* Selected star background */
+
+.starability-slot input:checked + label {
+    background: rgba(255, 193, 7, 0.08);
+}
+
+
+/* =========================================
+   FOCUS / KEYBOARD
+   ========================================= */
+
+.starability-slot input:focus + label {
+    outline: 2px solid #222;
+    outline-offset: 3px;
+}
+
+
+/* =========================================
+   RATING RESULT
+   Used for saved reviews
+   ========================================= */
+
+.starability-result {
+    position: relative;
+
+    display: inline-block;
+
+    width: 145px;
+    height: 32px;
+
+    margin: 5px 0;
+
+    font-size: 0;
+}
+
+
+/* Empty stars */
+
+.starability-result::before {
+    content: "★★★★★";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    font-size: 28px;
+
+    letter-spacing: 2px;
+
+    color: #d8d8d8;
+
+    line-height: 1;
+}
+
+
+/* Filled stars */
+
+.starability-result::after {
+    content: "★★★★★";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    font-size: 28px;
+
+    letter-spacing: 2px;
+
+    color: #ffc107;
+
+    line-height: 1;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 1px 3px rgba(255, 193, 7, 0.25);
+}
+
+
+/* =========================================
+   5 STAR
+   ========================================= */
+
+.starability-result[data-rating="5"]::after {
+    width: 145px;
+}
+
+
+/* =========================================
+   4 STAR
+   ========================================= */
+
+.starability-result[data-rating="4"]::after {
+    width: 116px;
+}
+
+
+/* =========================================
+   3 STAR
+   ========================================= */
+
+.starability-result[data-rating="3"]::after {
+    width: 87px;
+}
+
+
+/* =========================================
+   2 STAR
+   ========================================= */
+
+.starability-result[data-rating="2"]::after {
+    width: 58px;
+}
+
+
+/* =========================================
+   1 STAR
+   ========================================= */
+
+.starability-result[data-rating="1"]::after {
+    width: 29px;
+}
+
+
+/* =========================================
+   RATING NUMBER
+   ========================================= */
+
+.rating-number {
+    display: inline-block;
+
+    margin-left: 8px;
+
+    padding: 4px 9px;
+
+    border-radius: 12px;
+
+    background: #f5f5f5;
+
+    color: #555;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 576px) {
+
+    .starability-slot {
+        gap: 3px;
+    }
+
+    .starability-slot label {
+        width: 36px;
+        height: 36px;
+    }
+
+    .starability-slot label::before {
+        font-size: 30px;
+    }
+
+    .starability-result {
+        width: 125px;
+        height: 28px;
+    }
+
+    .starability-result::before,
+    .starability-result::after {
+        font-size: 24px;
+        letter-spacing: 2px;
+    }
+
+    .starability-result[data-rating="5"]::after {
+        width: 125px;
+    }
+
+    .starability-result[data-rating="4"]::after {
+        width: 100px;
+    }
+
+    .starability-result[data-rating="3"]::after {
+        width: 75px;
+    }
+
+    .starability-result[data-rating="2"]::after {
+        width: 50px;
+    }
+
+    .starability-result[data-rating="1"]::after {
+        width: 25px;
+    }
+}
+
+
+
